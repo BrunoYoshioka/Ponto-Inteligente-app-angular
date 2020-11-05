@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components';
+import { RouterModule } from '@angular/router'; // responsável por disponibilizar o router-outlet directiva 
 
-
+import { LoginComponent, LogarComponent } from './components';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LogarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class LoginModule { }
