@@ -9,7 +9,8 @@ import { AppComponent } from './app.component';
 import { 
   LoginModule, 
   LoginRoutingModule,
-  CadastroPjModule
+  CadastroPjModule,
+  CadastroPjRoutingModule
 } from './autenticacao';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {
     LoginModule,
     LoginRoutingModule,
     CadastroPjModule,
+    CadastroPjRoutingModule,
 
     AppRoutingModule
   ],
