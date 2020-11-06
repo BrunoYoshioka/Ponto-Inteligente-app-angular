@@ -14,6 +14,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LoginComponent, LogarComponent } from './components';
+import { LoginService } from './services'; // como é um serviço, será preciso importar no provider
 
 @NgModule({
   declarations: [
@@ -32,6 +33,9 @@ import { LoginComponent, LogarComponent } from './components';
     MatIconModule, // Módulo que usamos para criar um icone formato de interrogação exibira mensagem de ajuda
     MatSnackBarModule, // Campo de alerta, sucesso, erro
     FlexLayoutModule // Tornar componentes responsivos
+  ],
+  providers: [
+    LoginService
   ]
 })
 export class LoginModule { }

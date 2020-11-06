@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: 'http://localhost:8080/', // Essa baseUrl servirá para autenticação (O que está fora de segurança do controle de acesso da API)
+  baseApiUrl: 'http://localhost:8080/api/' // Endpoints de acessos a aplicação (Autenticado)
 };
 
 /*
