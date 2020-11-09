@@ -10,7 +10,8 @@ import {
   LoginModule, 
   LoginRoutingModule,
   CadastroPjModule,
-  CadastroPjRoutingModule
+  CadastroPjRoutingModule,
+  CadastroPfModule
 } from './autenticacao';
 
 @NgModule({
@@ -25,6 +26,7 @@ import {
     LoginRoutingModule,
     CadastroPjModule,
     CadastroPjRoutingModule,
+    CadastroPfModule,
 
     AppRoutingModule
   ],
