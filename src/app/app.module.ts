@@ -18,6 +18,8 @@ import {
   CadastroPfRoutingModule
 } from './autenticacao';
 
+import { FuncionarioModule } from './funcionario';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -34,6 +36,7 @@ import {
     CadastroPjRoutingModule,
     CadastroPfModule,
     CadastroPfRoutingModule,
+    FuncionarioModule,
 
     AppRoutingModule
   ],
