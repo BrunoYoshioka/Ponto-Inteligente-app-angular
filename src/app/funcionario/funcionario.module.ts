@@ -19,6 +19,8 @@ import { ListagemComponent, LancamentoComponent, FuncionarioComponent } from './
 
 import { HttpUtilService, LancamentoService, PtBrMatPaginatorIntl } from '../shared';
 
+import{ SharedModule } from '../shared/shared.module';
+
 @NgModule({
   declarations: [
     ListagemComponent, 
@@ -39,7 +41,8 @@ import { HttpUtilService, LancamentoService, PtBrMatPaginatorIntl } from '../sha
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule
   ],
   providers: [
     HttpUtilService,

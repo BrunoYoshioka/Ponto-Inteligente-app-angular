@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MascaraDirective } from './directives/mascara.directive';
-import { PtBrMatPaginatorIntl } from './';
+import { PtBrMatPaginatorIntl, TipoPipe } from './';
 
 @NgModule({
   declarations: [
-    MascaraDirective
+    MascaraDirective,
+    TipoPipe
   ],
   imports: [
     CommonModule
   ],
   exports: [
-    MascaraDirective
+    MascaraDirective,
+    TipoPipe
   ],
   providers: [
     PtBrMatPaginatorIntl // como é a classe de serviço, será declarado em providers 
