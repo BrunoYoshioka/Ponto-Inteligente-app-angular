@@ -44,5 +44,22 @@ export class LancamentoService {
         this.httpUtil.headers()
     );
   }
+
+  listarLancamentosPorFuncionario(
+    // Receberá quatro parametros
+    funcionarioId: string,
+    pagina: number,
+    ordem: string,
+    direcao: string /*asc, desc... */): Observable<any> {
+
+    // gerar a URL
+    const url: string = env.baseApiUrl + this.PATH + 
+      this.PATH_LANCAMENTOS.replace('{funcionarioId}', funcionarioId);
+    
+    const params: string = '?pag=' + pagina +
+      '&ord=' + ordem + '&dir=' + direcao;
+    
+    return this.http.get(url + params, this.httpUtil.headers());
+  }
   
 }
