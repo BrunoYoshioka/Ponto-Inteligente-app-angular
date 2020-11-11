@@ -21,7 +21,10 @@ import { LancamentoService, Lancamento } from '../../../shared';
 export class ListagemComponent implements OnInit {
 
   dataSource: MatTableDataSource<Lancamento>; // o componente que será responsável em manipular os dados vindos do servidor
-  colunas: string[] = ['data', 'tipo', 'localizacao']; // Sao as colunas que receberá da tabela 
+  colunas: string[] = ['data', 'tipo', 'localizacao']; // Sao as colunas que receberá da tabela
+
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
     private lancamentoService: LancamentoService,
@@ -34,6 +37,8 @@ export class ListagemComponent implements OnInit {
         data => {
           const lancamentos = data['data'] as Lancamento[];
           this.dataSource = new MatTableDataSource<Lancamento>(lancamentos);
+          this.dataSource.sort = this.sort;
+          this.dataSource.paginator = this.paginator;
         },
         err => {
           const msg: string = "Erro obtendo lançamentos.";
