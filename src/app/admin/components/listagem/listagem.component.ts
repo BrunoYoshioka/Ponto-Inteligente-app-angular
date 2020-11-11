@@ -16,7 +16,8 @@ import {
   Lancamento,
   Funcionario,
   Tipo,
-  HttpUtilService
+  HttpUtilService,
+  FuncionarioService
 } from '../../../shared';
 
 // definição dos componentes
@@ -40,7 +41,8 @@ export class ListagemComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private httpUtil: HttpUtilService,
     private snackBar: MatSnackBar,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private funcionarioService: FuncionarioService) { }
 
   // Inicialização dos components
   ngOnInit(): void {
