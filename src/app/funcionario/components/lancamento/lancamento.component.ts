@@ -4,6 +4,9 @@ import { Router } from '@angular/router'; // para redirecionamento das telas
 
 import {
   Tipo,
+  LancamentoService,
+  Lancamento,
+  HttpUtilService
 } from '../../../shared';
 
 import * as moment from 'moment'; // importação da biblioteca externa
@@ -25,6 +28,8 @@ export class LancamentoComponent implements OnInit {
   constructor(
     private snackBar: MatSnackBar,
     private router: Router,
+    private httpUtil: HttpUtilService,
+    private lancamentoService: LancamentoService
   ) { }
 
   ngOnInit(): void {
@@ -60,12 +65,41 @@ export class LancamentoComponent implements OnInit {
   }
 
   obterUltimoLancamento() {
-    this.ultimoTipoLancado = '';
+    this.lancamentoService.buscarUltimoTipoLancado()
+      .subscribe(
+        data => {
+          this.ultimoTipoLancado = data.data ? data.data.tipo : '';
+        },
+        err => {
+          const msg: string = "Erro obtendo último lançamento.";
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
   }
 
   cadastrar(tipo: Tipo) {
-    alert(`Tipo: ${tipo}, dataAtualEn: ${this.dataAtualEn},
-      geolocation: ${this.geoLocation}`);
+    const lancamento: Lancamento = new Lancamento(
+      this.dataAtualEn, // passando a data para que o servidor passará a persistencia
+      tipo,
+      this.geoLocation, // GPS posição e localização do funcionário
+      this.httpUtil.obterIdUsuario()
+    );
+
+    this.lancamentoService.cadastrar(lancamento)
+      .subscribe(
+        data => {
+          const msg: string = "Lançamento realizado com sucesso!";
+          this.snackBar.open(msg, "Sucesso", { duration: 5000 });
+          this.router.navigate(['/funcionario/listagem']);
+        },
+        err => {
+          let msg: string = "Tente novamente em instantes.";
+          if (err.status == 400) {
+            msg = err.error.errors.join(' ');
+          }
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
   }
 
   obterUrlMapa(): string {
