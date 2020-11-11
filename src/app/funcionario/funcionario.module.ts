@@ -11,13 +11,13 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatCardModule } from '@angular/material/card';
 
 import { ListagemComponent, LancamentoComponent, FuncionarioComponent } from './components';
 
-import { HttpUtilService, LancamentoService } from '../shared';
+import { HttpUtilService, LancamentoService, PtBrMatPaginatorIntl } from '../shared';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { HttpUtilService, LancamentoService } from '../shared';
   ],
   providers: [
     HttpUtilService,
-    LancamentoService
+    LancamentoService,
+    { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl } // registrar em providers, instruindo como, prover para a classe MatPaginatorIntl, a implementação que foi sobrescrito
   ]
 })
 export class FuncionarioModule { }
