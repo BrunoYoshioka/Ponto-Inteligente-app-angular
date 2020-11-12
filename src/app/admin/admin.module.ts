@@ -31,14 +31,21 @@ import {
   FuncionarioService
 } from '../shared';
 
-import { ListagemComponent, CadastroComponent, AtualizacaoComponent, AdminComponent } from './components';
+import { 
+  ListagemComponent, 
+  CadastroComponent, 
+  AtualizacaoComponent, 
+  AdminComponent, 
+  ConfirmarDialog 
+} from './components';
 
 @NgModule({
   declarations: [
     ListagemComponent, 
     CadastroComponent, 
     AtualizacaoComponent,
-    AdminComponent
+    AdminComponent,
+    ConfirmarDialog
   ],
   imports: [
     CommonModule,
@@ -70,5 +77,6 @@ import { ListagemComponent, CadastroComponent, AtualizacaoComponent, AdminCompon
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
     { provide: MatPaginatorIntl, useClass: PtBrMatPaginatorIntl }
   ],
+  entryComponents: [ConfirmarDialog] // O Angular possui esse componente na qual ele faz o registro cria esse componente ao inicializar o modulo
 })
 export class AdminModule { }
