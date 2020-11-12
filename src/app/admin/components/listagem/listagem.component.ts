@@ -82,7 +82,7 @@ export class ListagemComponent implements OnInit {
           this.funcionarios = (data.data as Funcionario[])
             .filter(func => func.id != usuarioId);
 
-          if (this.funcId) {
+          if (this.funcId) { // se houver um funcionario selecionado
             this.form.get('funcs').setValue(parseInt(this.funcId, 10));
             this.exibirLancamentos();
           }
