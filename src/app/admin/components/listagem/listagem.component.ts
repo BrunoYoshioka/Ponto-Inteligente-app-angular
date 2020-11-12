@@ -33,6 +33,10 @@ export class ListagemComponent implements OnInit {
   funcionarioId: string;
   totalLancamentos: number;
 
+  funcionarios: Funcionario[]; // listagem de funcionários
+  @ViewChild(MatSelect) matSelect: MatSelect; // associando matSelect no componente, para saber qual valor esta sendo selecionado
+  form: FormGroup;
+
   private pagina: number;
   private ordem: string;
   private direcao: string;
@@ -48,7 +52,15 @@ export class ListagemComponent implements OnInit {
   ngOnInit(): void {
     this.pagina = 0;
     this.ordemPadrao();
-    this.exibirLancamentos();
+    this.obterFuncionarios();
+    this.gerarForm();
+  }
+
+  gerarForm() {
+    // usando o formBuilder para criar um formGroupBuilder
+    this.form = this.fb.group({
+      funcs: ['', []]
+    });
   }
 
   ordemPadrao() {
@@ -56,8 +68,41 @@ export class ListagemComponent implements OnInit {
     this.direcao = 'DESC';
   }
 
+  // método auxiliar para armazenar o funcionário selecionado na memória storage do navegador
+  // qdo mudar de pagina irá trazer mantendo o estado do ultimo funcionário selecionado
+  get funcId(): string {
+    return sessionStorage['funcionarioId'] || false;
+  }
+
+  obterFuncionarios() {
+    this.funcionarioService.listarFuncionariosPorEmpresa()
+      .subscribe(
+        data => {
+          const usuarioId: string = this.httpUtil.obterIdUsuario();
+          this.funcionarios = (data.data as Funcionario[])
+            .filter(func => func.id != usuarioId);
+
+          if (this.funcId) {
+            this.form.get('funcs').setValue(parseInt(this.funcId, 10));
+            this.exibirLancamentos();
+          }
+        },
+        err => {
+          const msg: string = "Erro obtendo funcionários.";
+          this.snackBar.open(msg, "Erro", { duration: 5000 });
+        }
+      );
+  }
+
   exibirLancamentos() {
-    this.funcionarioId = '2';
+    if (this.matSelect.selected) {
+      this.funcionarioId = this.matSelect.selected['value'];
+    } else if (this.funcId) {
+      this.funcionarioId = this.funcId;
+    } else {
+      return;
+    }
+    sessionStorage['funcionarioId'] = this.funcionarioId;
 
     this.lancamentoService.listarLancamentosPorFuncionario(
         this.funcionarioId, this.pagina, this.ordem, this.direcao)
