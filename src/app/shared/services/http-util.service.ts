@@ -46,4 +46,12 @@ export class HttpUtilService {
     return JSON.parse(atob(localStorage['token'].split('.')[1])); // pegar a segunda parte, pois essa parte da hash possui os dados que precisamos, como usuários da empresa etc.
   }
 
+  obterPerfil(): string {
+    if (!localStorage['token']) {
+      return '';
+    }
+    const dadosUsuario = this.obterDadosUsuario();
+    return dadosUsuario ? dadosUsuario.role : '';
+  }
+
 }
